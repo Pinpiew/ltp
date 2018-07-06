@@ -19,7 +19,6 @@ add_key04 add_key04
 adjtimex01 adjtimex01
 adjtimex02 adjtimex02
 
-alarm01 alarm01
 alarm02 alarm02
 alarm03 alarm03
 alarm05 alarm05
@@ -184,7 +183,6 @@ fchmod03 fchmod03
 fchmod04 fchmod04
 fchmod05 fchmod05
 fchmod06 fchmod06
-fchmod07 fchmod07
 
 #fchmodat test cases
 fchmodat01 fchmodat01
@@ -350,6 +348,7 @@ getcwd01 getcwd01
 getcwd02 getcwd02
 getcwd03 getcwd03
 getcwd04 getcwd04
+getcwd05 getcwd05
 
 getdents01 getdents01
 getdents02 getdents02
@@ -478,6 +477,9 @@ inotify03 inotify03
 inotify04 inotify04
 inotify05 inotify05
 inotify06 inotify06
+inotify07 inotify07
+inotify08 inotify08
+inotify09 inotify09
 
 fanotify01 fanotify01
 fanotify02 fanotify02
@@ -487,6 +489,7 @@ fanotify05 fanotify05
 fanotify06 fanotify06
 fanotify07 fanotify07
 fanotify08 fanotify08
+fanotify09 fanotify09
 
 ioperm01 ioperm01
 ioperm02 ioperm02
@@ -587,18 +590,17 @@ memcpy01 memcpy01
 
 migrate_pages01 migrate_pages01
 migrate_pages02 migrate_pages02
+migrate_pages03 migrate_pages03
 
 mlockall01 mlockall01
 mlockall02 mlockall02
 mlockall03 mlockall03
 
-mkdir01 mkdir01
 mkdir02 mkdir02
 mkdir03 mkdir03
 mkdir04 mkdir04
 mkdir05 mkdir05
 mkdir05A symlink01 -T mkdir05
-mkdir08 mkdir08
 mkdir09 mkdir09
 
 #mkdirat test cases
@@ -653,17 +655,17 @@ mount04 mount04
 mount05 mount05
 mount06 mount06
 
-move_pages01 move_pages.sh 01
-move_pages02 move_pages.sh 02
-move_pages03 cd $LTPROOT/testcases/bin && chown root move_pages03 && chmod 04755 move_pages03 && move_pages.sh 03
-move_pages04 move_pages.sh 04
-move_pages05 move_pages.sh 05
-move_pages06 move_pages.sh 06
-move_pages07 move_pages.sh 07
-move_pages08 move_pages.sh 08
-move_pages09 move_pages.sh 09
-move_pages10 move_pages.sh 10
-move_pages11 cd $LTPROOT/testcases/bin && chown root move_pages11 && chmod 04755 move_pages11 && move_pages.sh 11
+move_pages01 move_pages01
+move_pages02 move_pages02
+move_pages03 move_pages03
+move_pages04 move_pages04
+move_pages05 move_pages05
+move_pages06 move_pages06
+move_pages07 move_pages07
+move_pages08 move_pages08
+move_pages09 move_pages09
+move_pages10 move_pages10
+move_pages11 move_pages11
 move_pages12 move_pages12
 
 mprotect01 mprotect01
@@ -688,15 +690,11 @@ msgctl01 msgctl01
 msgctl02 msgctl02
 msgctl03 msgctl03
 msgctl04 msgctl04
-msgctl05 msgctl05
-msgctl06 msgctl06
-msgctl07 msgctl07
-msgctl08 msgctl08
-msgctl09 msgctl09
-msgctl10 msgctl10
-msgctl11 msgctl11
+msgstress01 msgstress01
+msgstress02 msgstress02
+msgstress03 msgstress03
+msgstress04 msgstress04
 msgctl12 msgctl12
-msgctl13 msgctl13
 
 msgget01 msgget01
 msgget02 msgget02
@@ -821,6 +819,8 @@ preadv01 preadv01
 preadv01_64 preadv01_64
 preadv02 preadv02
 preadv02_64 preadv02_64
+preadv03 preadv03
+preadv03_64 preadv03_64
 
 profil01 profil01
 
@@ -851,16 +851,20 @@ ptrace07 ptrace07
 
 pwrite01 pwrite01
 pwrite02 pwrite02
+pwrite03 pwrite03
 pwrite04 pwrite04
 
 pwrite01_64 pwrite01_64
 pwrite02_64 pwrite02_64
+pwrite03_64 pwrite03_64
 pwrite04_64 pwrite04_64
 
 pwritev01 pwritev01
 pwritev01_64 pwritev01_64
 pwritev02 pwritev02
 pwritev02_64 pwritev02_64
+pwritev03 pwritev03
+pwritev03_64 pwritev03_64
 
 quotactl01 quotactl01
 quotactl02 quotactl02
@@ -880,9 +884,7 @@ readdir21 readdir21
 
 readlink01A symlink01 -T readlink01
 readlink01 readlink01
-readlink02 readlink02
 readlink03 readlink03
-readlink04 readlink04
 
 #readlinkat test cases
 readlinkat01 readlinkat01
@@ -935,13 +937,12 @@ request_key01 request_key01
 request_key02 request_key02
 request_key03 request_key03
 cve-2017-6951 cve-2017-6951
+request_key04 request_key04
 
 rmdir01 rmdir01
 rmdir02 rmdir02
 rmdir03 rmdir03
 rmdir03A symlink01 -T rmdir03
-rmdir04 rmdir04
-rmdir05 rmdir05
 
 rt_sigaction01 rt_sigaction01
 rt_sigaction02 rt_sigaction02
@@ -1169,8 +1170,6 @@ settimeofday02 settimeofday02
 
 setuid01 setuid01
 setuid01_16 setuid01_16
-setuid02 setuid02
-setuid02_16 setuid02_16
 setuid03 setuid03
 setuid03_16 setuid03_16
 setuid04 setuid04
@@ -1227,6 +1226,7 @@ sigrelse01 sigrelse01
 
 sigsuspend01 sigsuspend01
 
+sigwaitinfo01 sigwaitinfo01
 
 socket01 socket01
 socket02 socket02
@@ -1312,7 +1312,6 @@ sysconf01 sysconf01
 sysctl01 sysctl01
 sysctl03 sysctl03
 sysctl04 sysctl04
-sysctl05 sysctl05
 
 sysfs01 sysfs01
 sysfs02 sysfs02
@@ -1380,7 +1379,6 @@ cve-2012-0957 cve-2012-0957
 
 unlink01 symlink01 -T unlink01
 unlink05 unlink05
-unlink06 unlink06
 unlink07 unlink07
 unlink08 unlink08
 
@@ -1453,6 +1451,7 @@ waitid01 waitid01
 waitid02 waitid02
 
 write01 write01
+write02 write02
 write03 write03
 write04 write04
 write05 write05

@@ -708,6 +708,9 @@ static int is_fuse(const char *fs_type)
 {
 	unsigned int i;
 
+	if (!fs_type)
+		return 0;
+
 	for (i = 0; i < ARRAY_SIZE(fuse_fs_types); i++) {
 		if (!strcmp(fuse_fs_types[i], fs_type))
 			return 1;
@@ -723,8 +726,6 @@ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
 {
 	int rval;
 
-	rval = mount(source, target, filesystemtype, mountflags, data);
-
 	/*
 	 * The FUSE filesystem executes mount.fuse helper, which tries to
 	 * execute corresponding binary name which is encoded at the start of
@@ -732,21 +733,23 @@ int safe_mount(const char *file, const int lineno, void (*cleanup_fn)(void),
          *
 	 * The mount helpers are called mount.$fs_type.
 	 */
-	if (rval == -1 && errno == ENODEV && is_fuse(filesystemtype)) {
+	if (is_fuse(filesystemtype)) {
 		char buf[1024];
-		int ret;
 
 		tst_resm(TINFO, "Trying FUSE...");
 		snprintf(buf, sizeof(buf), "mount.%s '%s' '%s'",
 			 filesystemtype, source, target);
 
-		ret = tst_system(buf);
-		if (WIFEXITED(ret) && WEXITSTATUS(ret) == 0)
+		rval = tst_system(buf);
+		if (WIFEXITED(rval) && WEXITSTATUS(rval) == 0)
 			return 0;
 
-		errno = ENODEV;
+		tst_brkm(TBROK, cleanup_fn, "mount.%s failed with %i",
+			 filesystemtype, rval);
+		return -1;
 	}
 
+	rval = mount(source, target, filesystemtype, mountflags, data);
 	if (rval == -1) {
 		tst_brkm(TBROK | TERRNO, cleanup_fn,
 			 "%s:%d: mount(%s, %s, %s, %lu, %p) failed",

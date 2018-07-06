@@ -2,6 +2,7 @@
 #define _MEM_H
 #include "config.h"
 #include "tst_test.h"
+#include "ksm_helper.h"
 
 #if defined(__powerpc__) || defined(__powerpc64__)
 #define MAXNODES		256
@@ -42,8 +43,6 @@ void testoom(int mempolicy, int lite, int retcode, int allow_sigkill);
 
 /* KSM */
 
-#define PATH_KSM		"/sys/kernel/mm/ksm/"
-
 void create_same_memory(int size, int num, int unit);
 void save_max_page_sharing(void);
 void restore_max_page_sharing(void);
@@ -56,8 +55,10 @@ void test_ksm_merge_across_nodes(unsigned long nr_pages);
 
 /* HUGETLB */
 
+#define PATH_HUGEPAGES		"/sys/kernel/mm/hugepages/"
 #define PATH_SHMMAX		"/proc/sys/kernel/shmmax"
 
+void check_hugepage(void);
 void write_memcg(void);
 
 /* cpuset/memcg */

@@ -22,7 +22,6 @@ TST_TOTAL=4
 TST_CLEANUP="nfs_cleanup"
 
 . nfs_lib.sh
-. test_net.sh
 
 setup()
 {

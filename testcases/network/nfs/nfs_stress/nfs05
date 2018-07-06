@@ -29,7 +29,6 @@ FILE_NUM=${FILE_NUM:-"50"}
 THREAD_NUM=${THREAD_NUM:-"8"}
 
 . nfs_lib.sh
-. test_net.sh
 
 tst_check_cmds make gcc
 

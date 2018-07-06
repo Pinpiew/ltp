@@ -89,3 +89,79 @@ int safe_personality(const char *filename, unsigned int lineno,
 
 	return prev_persona;
 }
+
+int safe_setregid(const char *file, const int lineno,
+		  gid_t rgid, gid_t egid)
+{
+	int rval;
+
+	rval = setregid(rgid, egid);
+	if (rval == -1) {
+		tst_brk_(file, lineno, TBROK | TERRNO,
+			 "setregid(%li, %li) failed",
+			 (long)rgid, (long)egid);
+	}
+
+	return rval;
+}
+
+
+int safe_setreuid(const char *file, const int lineno,
+		  uid_t ruid, uid_t euid)
+{
+	int rval;
+
+	rval = setreuid(ruid, euid);
+	if (rval == -1) {
+		tst_brk_(file, lineno, TBROK | TERRNO,
+			 "setreuid(%li, %li) failed",
+			 (long)ruid, (long)euid);
+	}
+
+	return rval;
+}
+
+
+int safe_sigaction(const char *file, const int lineno,
+                   int signum, const struct sigaction *act,
+                   struct sigaction *oldact)
+{
+	int rval;
+
+	rval = sigaction(signum, act, oldact);
+
+	if (rval == -1) {
+		tst_brk_(file, lineno, TBROK | TERRNO,
+			"sigaction(%s (%d), %p, %p) failed",
+			tst_strsig(signum), signum, act, oldact);
+	}
+
+	return rval;
+}
+
+struct group *safe_getgrnam(const char *file, const int lineno,
+			    const char *name)
+{
+	struct group *rval;
+
+	rval = getgrnam(name);
+	if (rval == NULL) {
+		tst_brk_(file, lineno, TBROK | TERRNO,
+			"getgrnam(%s) failed", name);
+	}
+
+	return rval;
+}
+
+int safe_chroot(const char *file, const int lineno, const char *path)
+{
+	int rval;
+
+	rval = chroot(path);
+	if (rval == -1) {
+		tst_brk_(file, lineno, TBROK | TERRNO,
+			 "chroot(%s) failed", path);
+	}
+
+	return rval;
+}

@@ -49,7 +49,8 @@ setup()
     export LTPROOT=${PWD}
     export TMPBASE="/tmp"
     export TMP="${TMPBASE}/ltp-$$"
-    export PATH="${PATH}:${LTPROOT}/testcases/bin"
+    export PATH="${PATH}:${LTPROOT}/testcases/bin:${LTPROOT}/bin"
+
 
     export LTP_DEV=""
     export LTP_DEV_FS_TYPE="ext2"
@@ -316,10 +317,10 @@ main()
     }
 
     # Blacklist or skip tests if a SKIPFILE was specified with -S
-    if [ -n "$SKIPFILE" ]
-    then
-        for file in $( cat $SKIPFILE ); do
-            sed -i "/^$file[ \t]/d" ${TMP}/alltests
+    if [ -n "${SKIPFILE}" ]; then
+        for test_name in $(awk '{print $1}' "${SKIPFILE}"); do
+            case "${test_name}" in \#*) continue;; esac
+            sed -i "/\<${test_name}\>/c\\${test_name} exit 32;" alltests
         done
     fi
 
